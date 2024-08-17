@@ -30,11 +30,12 @@ Config with use-package:
 
 #+begin_src elisp
   (use-package password-store-menu
-    :init (password-store-menu-enable)
+    :config (password-store-menu-enable)
     :custom (password-store-menu-key "C-c p"))
 #+end_src
 
 #+RESULTS:
+: t
 
 Or without use-package:
 #+begin_src elisp
@@ -42,6 +43,9 @@ Or without use-package:
   (custom-set-variables '(password-store-menu-key  "C-c p"))
   (password-store-menu-enable)
 #+end_src
+
+#+RESULTS:
+: password-store-menu
 
 ** Usage
 By default, the password-store popup menu will be bound to the key =C-c p=. You can configure this (see above).
