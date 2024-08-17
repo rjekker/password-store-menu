@@ -1,4 +1,4 @@
-;;; password-store-menu.el ---  A better, more complete UI for password-store -*- lexical-binding: t; -*-
+;;; password-store-menu.el --- A better, more complete UI for password-store -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024 Reindert-Jan Ekker <info@rjekker.nl>
 
@@ -274,6 +274,7 @@ Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number
    ("g" "Generate" password-store-menu--generate-run-transient)])
 
 
+;;;###autoload
 (transient-define-prefix password-store-menu ()
   "Entry point for password store actions."
   ["Password Entry"
@@ -283,8 +284,7 @@ Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number
     ("f" "Copy Field" password-store-copy-field)
     ("o" "Browse and copy" password-store-menu-browse-and-copy)
     ("v" "View" password-store-menu-view)
-    ("q" "QR code" password-store-menu-qr)
-    ]
+    ("q" "QR code" password-store-menu-qr)]
    ["Change"
     ("D" "Delete" password-store-remove)
     ("e" "Edit (visit file)" password-store-menu-visit)
@@ -292,18 +292,16 @@ Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number
     ("i" "Insert password" password-store-insert)
     ("I" "Insert multiline" password-store-menu-insert-multiline)
     ("g" "generate" password-store-menu-generate-transient :transient transient--do-exit)
-    ("r" "Rename" password-store-rename)
-    ]
+    ("r" "Rename" password-store-rename)]
    ["VC" :if (lambda () (vc-responsible-backend (password-store-dir) t))
     ("=" "Diff" password-store-menu-diff)
     ("p" "Pull" password-store-menu-pull)
-    ("P" "Push" password-store-menu-push)
-    ]
+    ("P" "Push" password-store-menu-push)]
    ["Store"
-    ("d" "Dired" password-store-menu-dired)
-    ]]
+    ("d" "Dired" password-store-menu-dired)]]
   [("!" "Clear secret from kill ring" password-store-clear)])
 
+;;;###autoload
 (defun password-store-menu-enable ()
   "Run this to setup `auto-mode-alist' and keybinding for `password-store-menu'."
   (interactive)
