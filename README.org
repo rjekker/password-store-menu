@@ -1,0 +1,77 @@
+* Password-store-menu
+**  A more convenient UI for password-store.el
+
+This emacs package improves on the user interface for password-store.el (see https://www.passwordstore.org/), adding a friendly transient pop-up.
+
+Here's what that looks like:
+
+[[./screenshot.png]]
+
+** Features
+The package adds a bunch of useful features, including:
+
+- A minor mode for editing/inserting password files
+- Changes to password files are auto-committed to git
+- Easy browsing and viewing of entries
+- Inserting multi-line passwords
+- Generating passwords with arguments (e.g. length, no-symbols)
+- Showing password QR code inside emacs
+
+** Installing
+#+begin_src elisp
+  (package-vc-install "https://github.com/rjekker/password-store-menu")
+#+end_src
+
+#+RESULTS:
+: t
+
+** Configuring
+Config with use-package:
+
+#+begin_src elisp
+  (use-package password-store-menu
+    :init (password-store-menu-enable)
+    :custom (password-store-menu-key "C-c p"))
+#+end_src
+
+#+RESULTS:
+
+Or without use-package:
+#+begin_src elisp
+  (require 'password-store-menu)
+  (custom-set-variables '(password-store-menu-key  "C-c p"))
+  (password-store-menu-enable)
+#+end_src
+
+** Usage
+By default, the password-store popup menu will be bound to the key =C-c p=. You can configure this (see above).
+
+The following menu items are available:
+
+** Use
+| Key | Name            | Description                                                            |
+|-----+-----------------+------------------------------------------------------------------------|
+| b   | Browse          | Open the URL field in a browser and                                    |
+| c   | Copy Secret     | Copy the secret into the clipboard                                     |
+| f   | Copy Field      | Select a field from the entry and copy it                              |
+| o   | Browse and Copy | Open the URL field in a browser and copy the secret into the clipboard |
+| v   | View            | Open entry in view-mode                                                |
+| q   | QR Code         | View QR code for secret in an Emacs buffer                             |
+
+** Change
+| Key | Name             | Description                                                   |
+|-----+------------------+---------------------------------------------------------------|
+| D   | Delete           | Delete password entry                                         |
+| e   | Edit             | Edit entry by visiting it                                     |
+| E   | Edit (pass)      | Edit entry by calling "pass edit"                             |
+| i   | Insert           | Insert a new password entry (single line: secret only)        |
+| I   | Insert multiline | Insert a new entry - open a buffer to create a multiline file |
+| g   | Generate         | Generate a new password                                       |
+| r   | Rename           | Rename an entry                                               |
+
+** VC
+| Key | Name | Description  |
+| =   | Diff | Show VC diff |
+| p   | Pull | Pull from VC |
+| P   | Push | Push to VC   |
+
