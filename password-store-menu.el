@@ -51,7 +51,7 @@
 (defcustom password-store-menu-key "C-c p"
   "Key to bind to the `password-store-menu' command.
 
-This is used by the password-store-menu-enable command."
+This is used by the `password-store-menu-enable' command."
   :group 'password-store
   :type 'key)
 
@@ -243,7 +243,9 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
     (apply #'password-store--run-async `("generate" ,@args ,entry ,length))))
 
 (defun password-store-menu--read-length (prompt initial-input history)
-  "Read a number for the password length, or return default if input empty."
+  "Read a number for the password length, or return default if input empty.
+
+Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number."
   (let ((input (transient--read-number-N prompt initial-input history nil)))
     (if (string-equal input "")
         (int-to-string password-store-password-length)
@@ -303,7 +305,7 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
   [("!" "Clear secret from kill ring" password-store-clear)])
 
 (defun password-store-menu-enable ()
-  "Run this to setup `auto-mode-alist' and keybinding for password-store-menu."
+  "Run this to setup `auto-mode-alist' and keybinding for `password-store-menu'."
   (interactive)
   (add-to-list 'auto-mode-alist (cons epa-file-name-regexp 'password-store-menu--maybe-edit-mode))
   (define-key global-map (kbd password-store-menu-key) #'password-store-menu))
