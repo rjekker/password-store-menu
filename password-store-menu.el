@@ -137,9 +137,12 @@ This runs \"pass show --qrcode\" and adds all other ARGS."
   "Insert a new ENTRY containing PASSWORD.
 
 This wraps `password-store-insert' with some code to read a new entry."
-  (interactive (list (password-store-menu--completing-read-new-entry)
-                     (read-passwd "Password: " t)))
-  (password-store-insert entry password))
+  (interactive (let ((entry (password-store-menu--completing-read-new-entry)))
+                 (list entry
+                       (if entry
+                           (read-passwd "Password: " t)
+                         nil))))
+  (when entry (password-store-insert entry password)))
 
 
 ;;;###autoload
@@ -245,7 +248,8 @@ Default PASSWORD-LENGTH is `password-store-password-length'."
 (defun password-store-menu--read-length (prompt initial-input history)
   "Read a number for the password length, or return default if input empty.
 
-Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number."
+Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to
+transient--read-number."
   (let ((input (transient--read-number-N prompt initial-input history nil)))
     (if (string-equal input "")
         (int-to-string password-store-password-length)
@@ -289,14 +293,14 @@ Arguments PROMPT, INITIAL-INPUT and HISTORY are passed to transient--read-number
     ("D" "Delete" password-store-remove)
     ("e" "Edit (visit file)" password-store-menu-visit)
     ("E" "Edit (pass command)" password-store-edit)
-    ("i" "Insert password" password-store-insert)
+    ("i" "Insert password" password-store-menu-insert)
     ("I" "Insert multiline" password-store-menu-insert-multiline)
     ("g" "generate" password-store-menu-generate-transient :transient transient--do-exit)
     ("r" "Rename" password-store-rename)]
    ["VC" :if (lambda () (vc-responsible-backend (password-store-dir) t))
-    ("=" "Diff" password-store-menu-diff)
-    ("p" "Pull" password-store-menu-pull)
-    ("P" "Push" password-store-menu-push)]
+    ("V=" "Diff" password-store-menu-diff)
+    ("Vp" "Pull" password-store-menu-pull)
+    ("VP" "Push" password-store-menu-push)]
    ["Store"
     ("d" "Dired" password-store-menu-dired)]]
   [("!" "Clear secret from kill ring" password-store-clear)])
