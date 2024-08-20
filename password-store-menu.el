@@ -4,7 +4,7 @@
 
 ;; Author: Reindert-Jan Ekker <info@rjekker.nl>
 ;; Maintainer: Reindert-Jan Ekker <info@rjekker.nl>
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; URL: https://github.com/rjekker/password-store-menu
 ;; Package-Requires: ((emacs "29.1") (password-store "2.3.2"))
 ;; SPDX-License-Identifier: GPL-3.0-or-later
