@@ -75,7 +75,7 @@ The following menu items are available:
 
 ** VC
 | Key | Name | Description  |
-| =   | Diff | Show VC diff |
-| p   | Pull | Pull from VC |
-| P   | Push | Push to VC   |
+| V=  | Diff | Show VC diff |
+| Vp  | Pull | Pull from VC |
+| VP  | Push | Push to VC   |
 
